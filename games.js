@@ -104,4 +104,3 @@ const template = `
 export default games;
 
 const gameObj = JSON.parse(games);
-console.log(gameObj);

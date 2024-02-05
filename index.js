@@ -167,7 +167,6 @@ const descriptionContainer = document.getElementById("description-container");
 const totalUnfundedGames = GAMES_JSON.filter(
   (game) => game.goal > game.pledged
 );
-console.log(totalUnfundedGames, totalUnfundedGames.length);
 
 // create a string that explains the number of unfunded games using the ternary operator
 const displayStr = `
@@ -177,7 +176,6 @@ A total of $${totalPledged.toLocaleString(
   totalUnfundedGames.length
 } games remains unfunded. We need your help to fund these amazing games!
 `;
-console.log(displayStr);
 // create a new DOM element containing the template string and append it to the description container
 const newPara = document.createElement("p");
 newPara.innerHTML = displayStr;
@@ -194,7 +192,6 @@ const secondGameContainer = document.getElementById("second-game");
 const sortedGames = GAMES_JSON.sort((item1, item2) => {
   return item2.pledged - item1.pledged;
 });
-console.log(sortedGames);
 
 function firstSecond(games) {
   const [firstGame, secondGame] = sortedGames;
@@ -260,12 +257,9 @@ const form = document.querySelector(".form");
 const searchBar = document.querySelector("#search");
 const searchGameContainer = document.getElementById("search-game-container");
 
-console.log(searchBar);
-
 form.addEventListener("submit", function (e) {
   e.preventDefault();
   const searchedGame = searchBar.value;
-  console.log(searchedGame);
 
   const gamesName = GAMES_JSON.reduce((acc, game) => {
     acc.push(game.name);
@@ -273,55 +267,61 @@ form.addEventListener("submit", function (e) {
   }, []);
   console.log(gamesName);
   //////
-  const matchedGame = gamesName.reduce((acc, game) => {
-    if (game.includes(searchedGame)) {
+  const matchedGame = GAMES_JSON.reduce((acc, game) => {
+    if (game.name.includes(searchedGame)) {
       acc.push(game);
     }
     return acc;
   }, []);
 
+  if (matchedGame) {
+    matchedGame.forEach((game) => {
+      const searchGameModal = document.createElement("div");
+      searchGameModal.classList.add(".game-card");
+      searchGameModal.classList.add(".hidden");
+      //////////
+      const searchGameImg = document.createElement("img");
+      searchGameImg.classList.add("game-img");
+      searchGameImg.src = `${game.img}`;
+      /////////
+      const searchGameName = document.createElement("h4");
+      searchGameName.classList.add("game-name");
+      searchGameName.innerHTML = `${game.name}`;
+      /////////
+      const searchGameDes = document.createElement("p");
+      searchGameDes.classList.add("game-description");
+      searchGameDes.innerHTML = `${game.description}`;
+      ////////////
+      const searchGameBacker = document.createElement("p");
+      searchGameBacker.classList.add("game-backer");
+      searchGameBacker.innerHTML = `${game.backers}`;
+      ////////////
+      searchGameModal.appendChild(searchGameImg);
+      searchGameModal.appendChild(searchGameName);
+      searchGameModal.appendChild(searchGameDes);
+      searchGameModal.appendChild(searchGameBacker);
+      /////////////
+      modal.appendChild(searchGameModal);
+    });
+  }
+  if (matchedGame.length === 0) {
+    const noMatchCard = document.createElement("div");
+    noMatchCard.classList.add(".game-card");
+    noMatchCard.classList.add(".hidden");
+
+    const noMatchMessage = document.createElement("p");
+    noMatchMessage.classList.add("game-name");
+    noMatchMessage.innerHTML = `Sorry we don't have any matching to "${searchedGame}" on our games list. Look below to find all our games.`;
+
+    noMatchCard.appendChild(noMatchMessage);
+
+    return modal.appendChild(noMatchCard);
+  }
+
   console.log(matchedGame);
   ////////Clearing
   searchBar.value = "";
   //////////////////////
-  let searchedGameObject = GAMES_JSON.reduce((acc, game) => {
-    if (game.name.includes(matchedGame)) {
-      acc = game;
-    }
-    return acc;
-  }, {});
-
-  if (!searchedGameObject) {
-    searchedGameObject = `Error`;
-  }
-  console.log(searchedGameObject);
-  /////////
-  const searchGameModal = document.createElement("div");
-  searchGameModal.classList.add(".game-card");
-  searchGameModal.classList.add(".hidden");
-  //////////
-  const searchGameImg = document.createElement("img");
-  searchGameImg.classList.add("game-img");
-  searchGameImg.src = `${searchedGameObject.img}`;
-  /////////
-  const searchGameName = document.createElement("h4");
-  searchGameName.classList.add("game-name");
-  searchGameName.innerHTML = `${searchedGameObject.name}`;
-  /////////
-  const searchGameDes = document.createElement("p");
-  searchGameDes.classList.add("game-description");
-  searchGameDes.innerHTML = `${searchedGameObject.description}`;
-  ////////////
-  const searchGameBacker = document.createElement("p");
-  searchGameBacker.classList.add("game-backer");
-  searchGameBacker.innerHTML = `${searchedGameObject.backers}`;
-  ////////////
-  searchGameModal.appendChild(searchGameImg);
-  searchGameModal.appendChild(searchGameName);
-  searchGameModal.appendChild(searchGameDes);
-  searchGameModal.appendChild(searchGameBacker);
-  //////////
-  document.querySelector("#search-game-container").appendChild(searchGameModal);
 });
 
 const openModal = function (e) {
