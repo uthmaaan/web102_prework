@@ -26,11 +26,11 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented features:
 
-<img src="C:\Users\ajiba\OneDrive\Desktop\TomiwaAjibade.gif" title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src="https://imgur.com/a/GjxZWJX.gif" title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 <!-- (https://www.screentogif.com/) -->
 
-GIF created with ...
+GIF created with (https://www.screentogif.com/)
 
 ## Notes
 
