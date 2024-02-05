@@ -18,9 +18,10 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [x] List anything else that you can get done to improve the app functionality!
-- A search feature.
+- A more appealing view!
+- A search button feature.
 - A navbar for easier access to the type of games.
-- A modal popup on search
+- A modal popup on search displaying the searched game(s), along with the information.
 
 ## Video Walkthrough
 
