@@ -26,9 +26,7 @@ The following **optional** features are implemented:
 
 Here's a walkthrough of implemented features:
 
-<img src="https://imgur.com/a/GjxZWJX.gif" title='Video Walkthrough' width='' alt='Video Walkthrough' />
-
-<!-- (https://www.screentogif.com/) -->
+https://imgur.com/a/GjxZWJX.gif
 
 GIF created with (https://www.screentogif.com/)
 
