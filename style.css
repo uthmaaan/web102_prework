@@ -175,8 +175,8 @@ li {
 .game-card {
   background-color: #27272a;
   color: white;
-  padding: 1%;
-  margin: 1%;
+  padding: 35px;
+  margin: 35px;
   width: 300px;
   text-align: center;
   border-radius: 7px;
@@ -209,9 +209,10 @@ li {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 60rem;
-  background: #27272a;
-  /* background-color: white; */
+  width: 300px;
+  background-color: #27272a;
+  padding: 35px;
+  margin: 35px;
   padding: 5rem 6rem;
   box-shadow: #ee3a2369 0px 20px 25px -5px, #ee3a2369 0px 10px 10px -5px;
   z-index: 1000;
@@ -229,6 +230,10 @@ li {
   transition: all, 0.5s;
 }
 
+.searched-game-card:hover {
+  cursor: pointer;
+  box-shadow: #ee3a2369 0px 20px 25px -5px, #ee3a2369 0px 10px 10px -5px;
+}
 .hidden {
   visibility: hidden;
   opacity: 0;

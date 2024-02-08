@@ -276,9 +276,10 @@ form.addEventListener("submit", function (e) {
 
   if (matchedGame) {
     matchedGame.forEach((game) => {
-      const searchGameModal = document.createElement("div");
-      searchGameModal.classList.add(".game-card");
-      searchGameModal.classList.add(".hidden");
+      // const searchGameModal = document.createElement("div");
+      // searchGameModal.classList.add(".hidden");
+      const searchGameCard = document.createElement("div");
+      searchGameCard.classList.add("searched-game-card");
       //////////
       const searchGameImg = document.createElement("img");
       searchGameImg.classList.add("game-img");
@@ -296,12 +297,12 @@ form.addEventListener("submit", function (e) {
       searchGameBacker.classList.add("game-backer");
       searchGameBacker.innerHTML = `${game.backers}`;
       ////////////
-      searchGameModal.appendChild(searchGameImg);
-      searchGameModal.appendChild(searchGameName);
-      searchGameModal.appendChild(searchGameDes);
-      searchGameModal.appendChild(searchGameBacker);
+      searchGameCard.appendChild(searchGameImg);
+      searchGameCard.appendChild(searchGameName);
+      searchGameCard.appendChild(searchGameDes);
+      searchGameCard.appendChild(searchGameBacker);
       /////////////
-      modal.appendChild(searchGameModal);
+      modal.appendChild(searchGameCard);
     });
   }
   if (matchedGame.length === 0) {
@@ -315,7 +316,7 @@ form.addEventListener("submit", function (e) {
 
     noMatchCard.appendChild(noMatchMessage);
 
-    return modal.appendChild(noMatchCard);
+    modal.appendChild(noMatchCard);
   }
 
   console.log(matchedGame);
@@ -325,7 +326,7 @@ form.addEventListener("submit", function (e) {
 });
 
 const openModal = function (e) {
-  e.preventDefault();
+  // e.preventDefault();
   modal.classList.remove("hidden");
   overlay.classList.remove("hidden");
 };
@@ -337,11 +338,66 @@ const closeModal = function () {
 };
 
 form.addEventListener("submit", openModal);
-
 overlay.addEventListener("click", closeModal);
-
 document.addEventListener("keydown", function (e) {
   if (e.key === "Escape" && !modal.classList.contains("hidden")) {
     closeModal();
+  }
+});
+
+let cardClicked, clickedCardName;
+
+// const gameInfo = document.getElementsByClassName("game-card");
+// gameInfo.addEventListener("click", function (e) {
+//   e.stopPropagation();
+
+//   const gameCard = e.target.closest(".game");
+// });
+
+gamesContainer.addEventListener("click", function (e) {
+  cardClicked = e.target;
+  if (!cardClicked.classList.contains("game-card")) return;
+  clickedCardName = cardClicked.querySelector("h4").innerHTML;
+
+  // openModal();
+  console.log(cardClicked, clickedCardName);
+
+  //////
+
+  const clickedMatchedGame = GAMES_JSON.reduce((acc, game) => {
+    if (game.name.includes(clickedCardName)) {
+      acc = game;
+    }
+    return acc;
+  });
+  console.log(clickedMatchedGame);
+
+  if (clickedMatchedGame) {
+    const clickedGameCard = document.createElement("div");
+    clickedGameCard.classList.add("searched-game-card");
+    //////////
+    const clickedGameImg = document.createElement("img");
+    clickedGameImg.classList.add("game-img");
+    clickedGameImg.src = `${clickedMatchedGame.img}`;
+    /////////
+    const clickedGameName = document.createElement("h4");
+    clickedGameName.classList.add("game-name");
+    clickedGameName.innerHTML = `${clickedMatchedGame.name}`;
+    /////////
+    const clickedGameDes = document.createElement("p");
+    clickedGameDes.classList.add("game-description");
+    clickedGameDes.innerHTML = `${clickedMatchedGame.description}`;
+    ////////////
+    const clickedGameBacker = document.createElement("p");
+    clickedGameBacker.classList.add("game-backer");
+    clickedGameBacker.innerHTML = `${clickedMatchedGame.backers}`;
+    ////////////
+    clickedGameCard.appendChild(clickedGameImg);
+    clickedGameCard.appendChild(clickedGameName);
+    clickedGameCard.appendChild(clickedGameDes);
+    clickedGameCard.appendChild(clickedGameBacker);
+    /////////////
+    modal.appendChild(clickedGameCard);
+    openModal();
   }
 });
